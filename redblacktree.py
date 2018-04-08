@@ -19,17 +19,58 @@ class RedBlackTree():
         return self._count
         
     def insert(self, key, value):
-        """complete this function"""
+        y = self._nil
+        x = self._root
+        
+        while(x != self._nil):
+            y = x
+            if key < x._key:
+                x = x.left
+            else:
+                x = x._right
+        """ verder af werken """
+            
+        
         pass
                             
     def _right_rotate(self, node):
-        """complete this function"""
+        y = node._right
+        node._left = y._right
+        if y._right != self._nil:
+            y._right._parent = node
+        if node._parent == self._nil:
+            self._root = y
+        elif node == node._parent._right:
+            node._parent._right = y
+        else:
+            node._parent._left = y
+        y._left = node
+        node._parent = y
         pass
         
     def _left_rotate(self, node):
-        """complete this function"""
+        y = node._right
+        node._right = y._left
+        if y._left != self._nil:
+            y._left._parent = node
+        y._parent = x._parent
+        if node._parent == self._nil:
+            self._root = y
+        elif node == node._parent._left:
+            node._parent._left = y
+        else:
+            node._parent._right = y
+        y._left = node
+        node._parent = y
         pass
                     
     def get(self, key):
-        """complete this function"""
-        pass
+        return search(self._root, key)
+        
+    def search(x,k):
+        if x == NIL || k == x._key:
+            return x
+        if k < x.key:
+            return search(x._left,k)
+        else:
+            return search(x._right,k)
