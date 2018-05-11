@@ -4,7 +4,7 @@ class RedBlackTreeNode():
         self._key = key
         self._values = [value]
         self._parent = parent
-        self._black = False
+        self._black = True
         self._left = None
         self._right = None
 
@@ -21,9 +21,6 @@ class RedBlackTree():
     def insert(self, key, value):
         z = RedBlackTreeNode(key, value)
         self._count += 1
-        if self._root == None:
-            self._root = z
-            return
         if self.get(key) != None:
             self.get(key).append(value)
             return
@@ -37,32 +34,38 @@ class RedBlackTree():
                 x = x._right
         z._parent = y
         if y == None:
+            z._black = True
             self._root = z
+            return
         elif z._key < y._key:
             y._left = z
-        else: #elif z._key > y._key:  zou hier voor else gaan, == is toch al uitgesloten op lijn 27
+        else:
             y._right = z
         z._left = None
         z.right = None
-        z._black = False;
+        z._black = False
         self._RB_fix(z)
         return
     
     def _RB_fix(self, z): # _ voor de naam is conventie als het enkel binnen de klasse gebruikt wordt
-        if z._parent._parent == None: # z._parent is root
-            return
-        while not z._parent._black:
+        #if z._parent._parent == None: # z._parent is root
+         #   return
+        while z._parent._black == False:
             if z._parent == z._parent._parent._left:
                 y = z._parent._parent._right
                 if y == None:
                     y = RedBlackTreeNode(None, None)
-                if not y._black:
+                if y._black == False:
                     z._parent._black = True
                     y._black = True
                     z._parent._parent._black = False
+                    z = z._parent._parent
+                    if z._parent == None:
+                        return
                 elif z == z._parent._right:
                     z = z._parent
                     self._left_rotate(z)
+                else:
                     z._parent._black = True
                     z._parent._parent._black = False
                     self._right_rotate(z._parent._parent)
@@ -70,13 +73,17 @@ class RedBlackTree():
                 y = z._parent._parent._left
                 if y == None:
                     y = RedBlackTreeNode(None, None)
-                if not y._black:
+                if y._black == False:
                     z._parent._black = True
                     y._black = True
                     z._parent._parent._black = False
+                    z = z._parent._parent
+                    if z._parent == None:
+                        return
                 elif z == z._parent._left:
                     z = z._parent
                     self._right_rotate(z)
+                else:
                     z._parent._black = True
                     z._parent._parent._black = False
                     self._left_rotate(z._parent._parent)
@@ -122,7 +129,7 @@ class RedBlackTree():
             return None
         else:
             if current_node._key == key:
-                return current_node
+                return current_node._values
             if key < current_node._key:
                 return self.get(key, current_node._left)
             else:
