@@ -7,5 +7,7 @@ class Ranker():
         self._bk_tree = bk_tree
 
     def evaluate(self,query):
-        """complete this function"""
-        pass
+        import re
+        TokenList = []
+        TokenList.append([i for i in re.split(r'(\d+|W+)',query) if i]);
+        
