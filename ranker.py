@@ -20,5 +20,6 @@ class Ranker():
                    results[book_id] += 1
                else:
                    results[book_id] = 1
-        #dictionary nog sorteren
-        return results
+        list_results = [(key, value) for key, value in results.items()]
+        results_sorted = sorted(list_results, key = lambda tup: tup[1], reverse = True)
+        return results_sorted
