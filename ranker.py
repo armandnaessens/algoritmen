@@ -11,7 +11,6 @@ class Ranker():
         import re
         TokenList = []
         TokenList.append([i for i in re.split(r'(\d+|W+)',query) if i]);
-                
 =======
         tokens = self._query_processor.process(query)
         results = {}
