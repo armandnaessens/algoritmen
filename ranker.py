@@ -7,11 +7,6 @@ class Ranker():
         self._bk_tree = bk_tree
 
     def evaluate(self,query):
-<<<<<<< HEAD
-        import re
-        TokenList = []
-        TokenList.append([i for i in re.split(r'(\d+|W+)',query) if i]);
-=======
         tokens = self._query_processor.process(query)
         results = {}
         for token in tokens:
@@ -28,4 +23,3 @@ class Ranker():
         list_results = [(key, value) for key, value in results.items()]
         results_sorted = sorted(list_results, key = lambda tup: tup[1], reverse = True)
         return results_sorted
->>>>>>> d9718b05af071a628eae9844c0b9593dfa21c859
